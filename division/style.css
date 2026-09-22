@@ -108,8 +108,7 @@ html,body{
 .card.c1{ background:var(--blue-soft); }
 .card.c2{ background:var(--purple-soft); }
 .card.c3{ background:var(--orange-soft); }
-.card.c4{ background:var(--paper-line); cursor:not-allowed; opacity:0.75; }
-.card.c4:hover{ transform:none; box-shadow:var(--card-shadow); }
+.card.c4{ background:var(--green-soft); }
 .card .badge-tag{
   position:absolute; top:1.2vh; right:1.2vh; font-family:'Baloo 2'; font-weight:700;
   font-size:1.6vh; background:var(--red); color:#fff; padding:0.4vh 0.9vw; border-radius:999px;
@@ -120,6 +119,7 @@ html,body{
 .float1{ animation: floaty 2.6s ease-in-out infinite; }
 .float2{ animation: floaty 2.6s ease-in-out infinite .5s; }
 .float3{ animation: floaty 2.6s ease-in-out infinite 1s; }
+.float4{ animation: floaty 2.6s ease-in-out infinite 1.5s; }
 @keyframes floaty{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-1.2vh); } }
 
 /* ---------- TOAST ---------- */
@@ -244,7 +244,7 @@ html,body{
 /* Casilleros pendientes (a completar por el alumno) dentro de la misma cuenta */
 .div-row-pending{ gap:0.4vw; }
 .pending-box{
-  width:4.6vw; border:2.5px solid var(--ink-soft); border-radius:8px; padding:0.15vh 0.2vh; text-align:center;
+  width:6.4vw; border:2.5px solid var(--ink-soft); border-radius:8px; padding:0.15vh 0.2vh; text-align:center;
   font-family:'Baloo 2'; font-weight:700; font-size:2.6vh; background:#fff; color:var(--ink-strong);
 }
 .pending-box.subtract-box{ color:var(--red); }
@@ -256,16 +256,16 @@ html,body{
 .divisor-num-display .check-mark{ color:var(--green); font-size:2.1vh; }
 .factor-row{ display:flex; align-items:center; gap:0.4vw; }
 .factor-box{
-  min-width:3.2vw; border:2.5px solid var(--ink-soft); border-radius:8px; padding:0.2vh 0.6vw;
+  min-width:3.6vw; border:2.5px solid var(--ink-soft); border-radius:8px; padding:0.2vh 0.6vw;
   font-family:'Baloo 2'; font-weight:700; font-size:2.2vh; color:var(--orange); background:#fff; text-align:center;
 }
 .factor-box.pending{ border-style:dashed; }
 .factor-box.pending input, .factor-box.final input{
-  border:none; width:3vw; text-align:center; font-family:'Baloo 2'; font-weight:700; font-size:2.2vh;
+  border:none; width:3.6vw; text-align:center; font-family:'Baloo 2'; font-weight:700; font-size:2.2vh;
   color:var(--orange); background:transparent;
 }
 .factor-box.final{ border-color:var(--ink); }
-.factor-box.final input{ width:4vw; font-size:2.6vh; color:var(--ink-strong); }
+.factor-box.final input{ width:5vw; font-size:2.6vh; color:var(--ink-strong); }
 .plus-sign{ color:var(--orange); font-weight:700; font-size:2.2vh; }
 .sum-hr{ width:4vw; border:none; border-top:2.5px solid var(--ink); margin:0.3vh 0; }
 .ok-inline-btn{

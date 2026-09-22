@@ -22,19 +22,19 @@ const THRESHOLDS = [ {key:'bronze', goal:5, icon:'🥉'}, {key:'silver', goal:10
 
 function updateProgressUI(){
   let next = THRESHOLDS.find(t => !badgeState[t.key]);
-  const fill = document.getElementById('progressFill');
-  const label = document.getElementById('progressLabel');
+  const fills = document.querySelectorAll('.progress-fill');
+  const labels = document.querySelectorAll('.progress-label');
   if(!next){
-    fill.style.width = '100%';
-    label.textContent = '🏆 ¡Completaste todas las medallas!';
+    fills.forEach(f=> f.style.width = '100%');
+    labels.forEach(l=> l.textContent = '🏆 ¡Completaste todas las medallas!');
     return;
   }
   const prevGoal = THRESHOLDS[THRESHOLDS.indexOf(next)-1]?.goal || 0;
   const span = next.goal - prevGoal;
   const progressed = badgeState.correctCount - prevGoal;
   const pct = Math.max(0, Math.min(100, (progressed/span)*100));
-  fill.style.width = pct + '%';
-  label.textContent = `${next.icon} ${badgeState.correctCount} / ${next.goal}`;
+  fills.forEach(f=> f.style.width = pct + '%');
+  labels.forEach(l=> l.textContent = `${next.icon} ${badgeState.correctCount} / ${next.goal}`);
 }
 
 function registerCorrect(){
@@ -453,3 +453,194 @@ function verificar(){
 }
 
 updateProgressUI();
+
+/* ================= EJERCICIOS 2 (divisor de 2 cifras, dividendo 4-5 cifras) ================= */
+let currentEj2 = { dividendo:1260, divisor:12, cociente:105 };
+let ejDiv2 = { remaining:0, cocienteAcum:0, steps:[], phase:'subtracting' };
+let calcAuxCount2 = 3;
+
+function generarEjercicio2(){
+  const divisor = Math.floor(Math.random()*90)+10; // 10..99
+  let cociente, dividendo;
+  do{
+    cociente = Math.floor(Math.random()*950)+11; // rango variado
+    dividendo = divisor * cociente;
+  } while(dividendo < 1000 || dividendo > 99999);
+  currentEj2 = { dividendo, divisor, cociente };
+}
+
+function resetEjDiv2(){
+  ejDiv2 = { remaining: currentEj2.dividendo, cocienteAcum: 0, steps: [], phase: 'subtracting' };
+  renderEjDivCol2();
+}
+
+function renderEjDivCol2(){
+  const col = document.getElementById('ejDivCol2');
+  let html = `<div class="div-header"><span class="tag">DIVIDENDO</span></div>`;
+  html += `<div class="div-row"><span class="dividendo">${currentEj2.dividendo}</span></div>`;
+  ejDiv2.steps.forEach(s=>{
+    html += `<div class="div-row"><span class="resta">− ${s.subtract}</span></div><hr>`;
+    html += `<div class="div-row"><span class="dividendo">${s.result}</span></div>`;
+  });
+  if(ejDiv2.phase === 'subtracting'){
+    html += `<div class="div-row div-row-pending">
+      <span class="resta">−</span>
+      <input type="number" id="pendSubtract2" class="pending-box subtract-box" placeholder="?" onkeydown="if(event.key==='Enter') confirmarPaso2()">
+    </div>`;
+    html += `<hr>`;
+    html += `<div class="div-row div-row-pending">
+      <input type="number" id="pendResult2" class="pending-box" placeholder="?" onkeydown="if(event.key==='Enter') confirmarPaso2()">
+    </div>`;
+  } else {
+    html += `<div class="div-row"><span class="dividendo resto-cero">${ejDiv2.remaining}</span></div>`;
+  }
+  col.innerHTML = html;
+  const wrap = document.querySelector('#screen-ejercicios2 .ej-scroll-wrap');
+  if(wrap) wrap.scrollTop = wrap.scrollHeight;
+
+  const dcol = document.getElementById('ejDivisorCol2');
+  let dhtml = `<div class="div-header"><span class="tag">DIVISOR</span></div>`;
+  dhtml += `<div class="divisor-num-display">${currentEj2.divisor} <span class="check-mark">✔</span></div>`;
+  ejDiv2.steps.forEach(s=>{
+    dhtml += `<div class="factor-box">${s.factor}</div>`;
+    dhtml += `<div class="plus-sign">+</div>`;
+  });
+  if(ejDiv2.phase === 'subtracting'){
+    dhtml += `<div class="factor-row">
+      <div class="factor-box pending"><input type="number" id="pendFactor2" placeholder="?" onkeydown="if(event.key==='Enter') confirmarPaso2()"></div>
+      <button class="ok-inline-btn" onclick="confirmarPaso2()">OK ✅</button>
+    </div>`;
+  } else {
+    dhtml += `<hr class="sum-hr">`;
+    dhtml += `<div class="factor-box final"><input type="number" id="ejFinalCociente2" placeholder="?"></div>`;
+  }
+  dcol.innerHTML = dhtml;
+
+  const focusTarget = document.getElementById('pendSubtract2');
+  if(focusTarget) setTimeout(()=> focusTarget.focus(), 30);
+}
+
+function confirmarPaso2(){
+  const fb = document.getElementById('ejFeedback2');
+  const sub = parseInt(document.getElementById('pendSubtract2').value, 10);
+  const res = parseInt(document.getElementById('pendResult2').value, 10);
+  const fac = parseInt(document.getElementById('pendFactor2').value, 10);
+
+  if(isNaN(sub) || isNaN(res) || isNaN(fac) || sub <= 0 || fac <= 0){
+    fb.style.color = 'var(--red)';
+    fb.textContent = '✍️ Completá los tres casilleros (resta, resultado y cociente parcial) antes de tocar OK.';
+    return;
+  }
+  if(fac * currentEj2.divisor !== sub){
+    fb.style.color = 'var(--red)';
+    fb.textContent = `Revisá: ${currentEj2.divisor} × ${fac} no da ${sub}. Usá los cálculos auxiliares de la derecha. 🤔`;
+    return;
+  }
+  if(sub > ejDiv2.remaining){
+    fb.style.color = 'var(--red)';
+    fb.textContent = `Eso es más de lo que queda (quedan ${ejDiv2.remaining}). Probá un múltiplo más chico. 💡`;
+    return;
+  }
+  if(ejDiv2.remaining - sub !== res){
+    fb.style.color = 'var(--red)';
+    fb.textContent = `${ejDiv2.remaining} − ${sub} no es ${res}. Revisá esa resta. ✏️`;
+    return;
+  }
+
+  ejDiv2.steps.push({ subtract: sub, factor: fac, result: res });
+  ejDiv2.remaining = res;
+  ejDiv2.cocienteAcum += fac;
+  if(ejDiv2.remaining < currentEj2.divisor){
+    ejDiv2.phase = 'summing';
+  }
+  renderEjDivCol2();
+
+  fb.style.color = 'var(--green)';
+  if(ejDiv2.phase === 'summing'){
+    fb.textContent = res === 0
+      ? '🎉 ¡Llegaste a resto 0! Ahora sumá los números del cociente.'
+      : `Como ${res} es menor que ${currentEj2.divisor}, ya no se puede seguir restando. ¡Sumá los números del cociente!`;
+  } else {
+    fb.textContent = `¡Bien! Quedan ${res}.`;
+  }
+}
+
+function renderCalcAuxRows2(){
+  const wrap = document.getElementById('calcAuxRows2');
+  wrap.innerHTML = '';
+  for(let i=0;i<calcAuxCount2;i++){
+    const row = document.createElement('div');
+    row.className = 'calc-aux-row';
+    row.innerHTML = `
+      <input class="w-num" type="number" placeholder="${currentEj2.divisor}">
+      <span class="op">×</span>
+      <input class="w-num" type="number" placeholder="?">
+      <span class="op">=</span>
+      <input class="w-res" type="number" placeholder="resultado">
+    `;
+    wrap.appendChild(row);
+  }
+}
+function addCalcRow2(){
+  calcAuxCount2++;
+  renderCalcAuxRows2();
+}
+
+function renderEjercicio2(){
+  document.getElementById('ejFeedback2').textContent = '';
+  document.getElementById('ejFeedback2').style.color = 'var(--ink)';
+  resetEjDiv2();
+  calcAuxCount2 = 3;
+  renderCalcAuxRows2();
+}
+
+function startEjercicios2(){
+  generarEjercicio2();
+  renderEjercicio2();
+  updateProgressUI();
+  showScreen('ejercicios2');
+}
+function nuevoEjercicio2(){
+  generarEjercicio2();
+  renderEjercicio2();
+}
+function showHint2(){
+  const rem = ejDiv2.remaining;
+  if(ejDiv2.phase === 'summing'){
+    document.getElementById('ejFeedback2').style.color = 'var(--purple)';
+    document.getElementById('ejFeedback2').textContent = '💡 Sumá todos los números que fuiste anotando en la columna del cociente.';
+    return;
+  }
+  let potencia = 1;
+  while(potencia * 10 <= rem) potencia *= 10;
+  const factor = Math.floor(rem / (currentEj2.divisor * potencia)) * potencia;
+  const hintTxt = factor > 0
+    ? `💡 Con lo que queda (${rem}), probá con el cociente parcial ${factor}: ${currentEj2.divisor} × ${factor} = ${currentEj2.divisor*factor}.`
+    : `💡 Pensá: ¿cuántas veces entra ${currentEj2.divisor} en ${rem}?`;
+  document.getElementById('ejFeedback2').style.color = 'var(--purple)';
+  document.getElementById('ejFeedback2').textContent = hintTxt;
+}
+function verificar2(){
+  const fb = document.getElementById('ejFeedback2');
+  if(ejDiv2.phase !== 'summing'){
+    fb.style.color = 'var(--red)';
+    fb.textContent = 'Primero terminá de restar hasta que el resto sea menor que el divisor. ✏️';
+    return;
+  }
+  const val = parseInt(document.getElementById('ejFinalCociente2').value, 10);
+  if(isNaN(val)){
+    fb.style.color = 'var(--red)';
+    fb.textContent = '✍️ Sumá los números del cociente y escribí el resultado.';
+    return;
+  }
+  if(val === currentEj2.cociente){
+    fb.style.color = 'var(--green)';
+    fb.textContent = `¡Correcto! 🎉 ${currentEj2.dividendo} ÷ ${currentEj2.divisor} = ${currentEj2.cociente}`;
+    registerCorrect();
+    launchConfetti();
+    setTimeout(nuevoEjercicio2, 1800);
+  } else {
+    fb.style.color = 'var(--red)';
+    fb.textContent = '¡Casi! Revisá la suma de los números del cociente. 💪';
+  }
+}

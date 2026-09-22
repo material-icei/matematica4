@@ -46,11 +46,11 @@
         <h3>Ejercicios</h3>
         <p>Divisor de 1 cifra, dividendo hasta 3 cifras</p>
       </div>
-      <div class="card c4" onclick="showLocked()">
-        <div class="lock-tag">🔒</div>
-        <div class="emoji">🚀</div>
-        <h3>Próximamente</h3>
-        <p>Divisor de 2 cifras</p>
+      <div class="card c4 float4" onclick="startEjercicios2()">
+        <div class="badge-tag">2 cifras</div>
+        <div class="emoji">🧠</div>
+        <h3>Ejercicios avanzados</h3>
+        <p>Divisor de 2 cifras, dividendo de 4 y 5 cifras</p>
       </div>
     </div>
   </div>
@@ -107,8 +107,8 @@
   <!-- ============ EJERCICIOS ============ -->
   <div class="screen" id="screen-ejercicios">
     <div class="progress-wrap">
-      <div class="progress-label" id="progressLabel">🥉 0 / 5</div>
-      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-label">🥉 0 / 5</div>
+      <div class="progress-track"><div class="progress-fill"></div></div>
     </div>
     <div class="ejercicio-wrap">
       <div class="ej-left">
@@ -131,6 +131,37 @@
         <h4>🧮 Cálculos auxiliares (multiplicaciones)</h4>
         <div class="calc-aux-rows" id="calcAuxRows"></div>
         <button class="add-calc-row-btn" onclick="addCalcRow()">➕ Agregar fila</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ EJERCICIOS 2 (divisor de 2 cifras) ============ -->
+  <div class="screen" id="screen-ejercicios2">
+    <div class="progress-wrap">
+      <div class="progress-label">🥉 0 / 5</div>
+      <div class="progress-track"><div class="progress-fill"></div></div>
+    </div>
+    <div class="ejercicio-wrap">
+      <div class="ej-left">
+        <div class="ej-scroll-wrap">
+          <div class="division-box">
+            <div class="div-col" id="ejDivCol2"></div>
+            <div class="divisor-col" id="ejDivisorCol2"></div>
+          </div>
+        </div>
+        <div class="ej-controls">
+          <div class="ej-buttons">
+            <button class="btn-hint" onclick="showHint2()">💡 Pista</button>
+            <button class="btn-verify" onclick="verificar2()">✅ Verificar</button>
+            <button class="btn-next" onclick="nuevoEjercicio2()">🔄 Nuevo</button>
+          </div>
+          <div class="ej-feedback" id="ejFeedback2"></div>
+        </div>
+      </div>
+      <div class="ej-right">
+        <h4>🧮 Cálculos auxiliares (multiplicaciones)</h4>
+        <div class="calc-aux-rows" id="calcAuxRows2"></div>
+        <button class="add-calc-row-btn" onclick="addCalcRow2()">➕ Agregar fila</button>
       </div>
     </div>
   </div>

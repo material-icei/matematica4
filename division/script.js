@@ -60,6 +60,7 @@ function showScreen(name){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('screen-'+name).classList.add('active');
   document.getElementById('backBtn').classList.toggle('show', name !== 'home');
+  document.getElementById('tutorialHeaderTabs').classList.toggle('show', name === 'tutorial');
 }
 function goHome(){ showScreen('home'); }
 

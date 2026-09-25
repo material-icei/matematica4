@@ -37,6 +37,11 @@
 }
 
 *{box-sizing:border-box;}
+/* Dígitos de ancho fijo (0-9 miden todos igual) para que un "1" y un "8" no
+   descalibren la alineación entre el dividendo y el número que se resta. */
+.div-row, .pending-box, .factor-box, .divisor-num, .cociente-num, .calc-item, .calc-aux-row input{
+  font-variant-numeric: tabular-nums;
+}
 html,body{
   margin:0; padding:0; width:100%; height:100%; overflow:hidden;
   background:var(--paper);
@@ -349,4 +354,3 @@ html,body{
   font-family:'Baloo 2'; font-weight:700; border:3px solid var(--ink); background:var(--blue); color:#fff;
   border-radius:999px; padding:1vh 2.4vw; cursor:pointer; font-size:2.1vh;
 }
-

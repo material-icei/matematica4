@@ -79,13 +79,17 @@
 
   <!-- ============ TUTORIAL ============ -->
   <div class="screen" id="screen-tutorial">
+    <div class="tab-switch">
+      <button class="active" id="btnTut1" onclick="switchTutorial(1)">➗ Divisor 1 cifra</button>
+      <button id="btnTut2" onclick="switchTutorial(2)">➗ Divisor 2 cifras</button>
+    </div>
     <div class="tutorial-wrap">
       <div class="tutorial-left">
         <div class="division-box">
           <div class="div-col" id="divCol"></div>
           <div class="divisor-col">
             <div class="div-header"><span class="tag">DIVISOR</span></div>
-            <div class="divisor-num">2</div>
+            <div class="divisor-num" id="tutDivisorNum">2</div>
             <hr style="width:3vw; border-top:2.5px solid var(--ink); margin-top:0.6vh;">
             <div class="cociente-num" id="cocienteAcum">0</div>
           </div>

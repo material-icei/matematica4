@@ -18,6 +18,10 @@
       <h1>División <span>Francesa</span></h1>
     </div>
     <div class="backbtn" id="backBtn" onclick="goHome()">⬅️ <span>Inicio</span></div>
+    <div class="header-tabs" id="tutorialHeaderTabs">
+      <button class="active" id="btnTut1" onclick="switchTutorial(1)">➗ Divisor 1 cifra</button>
+      <button id="btnTut2" onclick="switchTutorial(2)">➗ Divisor 2 cifras</button>
+    </div>
     <div class="header-right">
       <div class="medal-rack" id="medalRack">
         <span class="slot" id="medalBronze">🥉</span>
@@ -79,11 +83,7 @@
 
   <!-- ============ TUTORIAL ============ -->
   <div class="screen" id="screen-tutorial">
-    <div class="tab-switch">
-      <button class="active" id="btnTut1" onclick="switchTutorial(1)">➗ Divisor 1 cifra</button>
-      <button id="btnTut2" onclick="switchTutorial(2)">➗ Divisor 2 cifras</button>
-    </div>
-    <div class="tutorial-wrap">
+    <div class="tutorial-3col">
       <div class="tutorial-left">
         <div class="division-box">
           <div class="div-col" id="divCol"></div>
@@ -95,16 +95,18 @@
           </div>
         </div>
       </div>
+      <div class="tutorial-middle">
+        <div class="tutorial-caption" id="tutorialCaption">Este es el dividendo 486 (lo que repartimos) y el divisor 2 (en cuántas partes lo repartimos). ¡Empecemos! 🎉</div>
+        <div class="tutorial-nav">
+          <button id="btnPrevStep" onclick="tutorialStep(-1)" disabled>⬅️ Anterior</button>
+          <div class="step-dots" id="stepDots"></div>
+          <button id="btnNextStep" onclick="tutorialStep(1)">Siguiente ➡️</button>
+        </div>
+      </div>
       <div class="tutorial-right">
         <h4>🧮 Cálculos auxiliares</h4>
         <div class="calc-list" id="calcList"></div>
       </div>
-    </div>
-    <div class="tutorial-caption" id="tutorialCaption">Este es el dividendo 486 (lo que repartimos) y el divisor 2 (en cuántas partes lo repartimos). ¡Empecemos! 🎉</div>
-    <div class="tutorial-nav">
-      <button id="btnPrevStep" onclick="tutorialStep(-1)" disabled>⬅️ Anterior</button>
-      <div class="step-dots" id="stepDots"></div>
-      <button id="btnNextStep" onclick="tutorialStep(1)">Siguiente ➡️</button>
     </div>
   </div>
 

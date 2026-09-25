@@ -18,6 +18,15 @@ function renderBadges(){
 }
 renderBadges();
 
+/* Los casilleros numéricos de los ejercicios son ahora inputs de texto (sin flechitas
+   nativas), así que filtramos para que solo acepten dígitos. */
+document.addEventListener('input', function(e){
+  if(e.target.matches('#screen-ejercicios input[type="text"], #screen-ejercicios2 input[type="text"]')){
+    const clean = e.target.value.replace(/[^0-9]/g, '');
+    if(clean !== e.target.value) e.target.value = clean;
+  }
+});
+
 const THRESHOLDS = [ {key:'bronze', goal:5, icon:'🥉'}, {key:'silver', goal:10, icon:'🥈'}, {key:'gold', goal:20, icon:'🥇'} ];
 
 function updateProgressUI(){
@@ -319,11 +328,11 @@ function renderEjDivCol(){
   if(ejDiv.phase === 'subtracting'){
     html += `<div class="div-row div-row-pending">
       <span class="resta">−</span>
-      <input type="number" id="pendSubtract" class="pending-box subtract-box" placeholder="?" onkeydown="if(event.key==='Enter') confirmarPaso()">
+      <input type="text" inputmode="numeric" pattern="[0-9]*" id="pendSubtract" class="pending-box subtract-box" placeholder="?" onkeydown="if(event.key==='Enter') confirmarPaso()">
     </div>`;
     html += `<hr>`;
     html += `<div class="div-row div-row-pending">
-      <input type="number" id="pendResult" class="pending-box" placeholder="?" onkeydown="if(event.key==='Enter') confirmarPaso()">
+      <input type="text" inputmode="numeric" pattern="[0-9]*" id="pendResult" class="pending-box" placeholder="?" onkeydown="if(event.key==='Enter') confirmarPaso()">
     </div>`;
   } else {
     html += `<div class="div-row"><span class="dividendo resto-cero">${ejDiv.remaining}</span></div>`;
@@ -342,12 +351,12 @@ function renderEjDivCol(){
   });
   if(ejDiv.phase === 'subtracting'){
     dhtml += `<div class="factor-row">
-      <div class="factor-box pending"><input type="number" id="pendFactor" placeholder="?" onkeydown="if(event.key==='Enter') confirmarPaso()"></div>
+      <div class="factor-box pending"><input type="text" inputmode="numeric" pattern="[0-9]*" id="pendFactor" placeholder="?" onkeydown="if(event.key==='Enter') confirmarPaso()"></div>
       <button class="ok-inline-btn" onclick="confirmarPaso()">OK ✅</button>
     </div>`;
   } else {
     dhtml += `<hr class="sum-hr">`;
-    dhtml += `<div class="factor-box final"><input type="number" id="ejFinalCociente" placeholder="?"></div>`;
+    dhtml += `<div class="factor-box final"><input type="text" inputmode="numeric" pattern="[0-9]*" id="ejFinalCociente" placeholder="?"></div>`;
   }
   dcol.innerHTML = dhtml;
 
@@ -410,11 +419,11 @@ function renderCalcAuxRows(){
     const row = document.createElement('div');
     row.className = 'calc-aux-row';
     row.innerHTML = `
-      <input class="w-num" type="number" placeholder="${currentEj.divisor}">
+      <input class="w-num" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="${currentEj.divisor}">
       <span class="op">×</span>
-      <input class="w-num" type="number" placeholder="?">
+      <input class="w-num" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="?">
       <span class="op">=</span>
-      <input class="w-res" type="number" placeholder="resultado">
+      <input class="w-res" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="resultado">
     `;
     wrap.appendChild(row);
   }
@@ -425,11 +434,11 @@ function addCalcRow(){
   const row = document.createElement('div');
   row.className = 'calc-aux-row';
   row.innerHTML = `
-    <input class="w-num" type="number" placeholder="${currentEj.divisor}">
+    <input class="w-num" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="${currentEj.divisor}">
     <span class="op">×</span>
-    <input class="w-num" type="number" placeholder="?">
+    <input class="w-num" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="?">
     <span class="op">=</span>
-    <input class="w-res" type="number" placeholder="resultado">
+    <input class="w-res" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="resultado">
   `;
   wrap.appendChild(row);
 }
@@ -526,11 +535,11 @@ function renderEjDivCol2(){
   if(ejDiv2.phase === 'subtracting'){
     html += `<div class="div-row div-row-pending">
       <span class="resta">−</span>
-      <input type="number" id="pendSubtract2" class="pending-box subtract-box" placeholder="?" onkeydown="if(event.key==='Enter') confirmarPaso2()">
+      <input type="text" inputmode="numeric" pattern="[0-9]*" id="pendSubtract2" class="pending-box subtract-box" placeholder="?" onkeydown="if(event.key==='Enter') confirmarPaso2()">
     </div>`;
     html += `<hr>`;
     html += `<div class="div-row div-row-pending">
-      <input type="number" id="pendResult2" class="pending-box" placeholder="?" onkeydown="if(event.key==='Enter') confirmarPaso2()">
+      <input type="text" inputmode="numeric" pattern="[0-9]*" id="pendResult2" class="pending-box" placeholder="?" onkeydown="if(event.key==='Enter') confirmarPaso2()">
     </div>`;
   } else {
     html += `<div class="div-row"><span class="dividendo resto-cero">${ejDiv2.remaining}</span></div>`;
@@ -548,12 +557,12 @@ function renderEjDivCol2(){
   });
   if(ejDiv2.phase === 'subtracting'){
     dhtml += `<div class="factor-row">
-      <div class="factor-box pending"><input type="number" id="pendFactor2" placeholder="?" onkeydown="if(event.key==='Enter') confirmarPaso2()"></div>
+      <div class="factor-box pending"><input type="text" inputmode="numeric" pattern="[0-9]*" id="pendFactor2" placeholder="?" onkeydown="if(event.key==='Enter') confirmarPaso2()"></div>
       <button class="ok-inline-btn" onclick="confirmarPaso2()">OK ✅</button>
     </div>`;
   } else {
     dhtml += `<hr class="sum-hr">`;
-    dhtml += `<div class="factor-box final"><input type="number" id="ejFinalCociente2" placeholder="?"></div>`;
+    dhtml += `<div class="factor-box final"><input type="text" inputmode="numeric" pattern="[0-9]*" id="ejFinalCociente2" placeholder="?"></div>`;
   }
   dcol.innerHTML = dhtml;
 
@@ -613,11 +622,11 @@ function renderCalcAuxRows2(){
     const row = document.createElement('div');
     row.className = 'calc-aux-row';
     row.innerHTML = `
-      <input class="w-num" type="number" placeholder="${currentEj2.divisor}">
+      <input class="w-num" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="${currentEj2.divisor}">
       <span class="op">×</span>
-      <input class="w-num" type="number" placeholder="?">
+      <input class="w-num" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="?">
       <span class="op">=</span>
-      <input class="w-res" type="number" placeholder="resultado">
+      <input class="w-res" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="resultado">
     `;
     wrap.appendChild(row);
   }
@@ -628,11 +637,11 @@ function addCalcRow2(){
   const row = document.createElement('div');
   row.className = 'calc-aux-row';
   row.innerHTML = `
-    <input class="w-num" type="number" placeholder="${currentEj2.divisor}">
+    <input class="w-num" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="${currentEj2.divisor}">
     <span class="op">×</span>
-    <input class="w-num" type="number" placeholder="?">
+    <input class="w-num" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="?">
     <span class="op">=</span>
-    <input class="w-res" type="number" placeholder="resultado">
+    <input class="w-res" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="resultado">
   `;
   wrap.appendChild(row);
 }

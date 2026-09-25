@@ -161,8 +161,10 @@ function checkQuizAnswer(val, btn){
   setTimeout(newQuizQuestion, 1400);
 }
 
-/* ================= TUTORIAL (486 ÷ 2 paso a paso) ================= */
-const tutorialSteps = [
+/* ================= TUTORIAL (paso a paso) =================
+   Dos ejemplos disponibles: divisor de 1 cifra (486÷2) y divisor
+   de 2 cifras (864÷32), seleccionables con las pestañas. */
+const tutorialSteps1 = [
   { rem:486, sub:null, cociente:0,  calc:null, caption:'Este es el dividendo 486 (lo que repartimos) y el divisor 2 (en cuántas partes lo repartimos). ¡Empecemos! 🎉' },
   { rem:486, sub:200,  cociente:0,  calc:'2 × 100 = 200', caption:'Buscamos un múltiplo fácil de 2 que se pueda restar de 486. ¡200 funciona! Restamos 486 − 200.' },
   { rem:286, sub:null, cociente:100, calc:null, caption:'Nos queda 286 y ya sabemos que el cociente lleva, al menos, 100.' },
@@ -183,7 +185,36 @@ const tutorialSteps = [
   { rem:2,   sub:2,    cociente:242, calc:'2 × 1 = 2', caption:'Última resta: 2 (2 × 1).' },
   { rem:0,   sub:null, cociente:243, calc:null, caption:'¡Llegamos a 0! El resto es 0 y el cociente final es 243. Comprobación: 243 × 2 = 486 ✅' },
 ];
+
+const tutorialSteps2 = [
+  { rem:864, sub:null, cociente:0,  calc:null, caption:'Ahora el divisor tiene dos cifras: 864 es el dividendo y 32 el divisor. ¡El método es el mismo! 🎉' },
+  { rem:864, sub:320,  cociente:0,  calc:'32 × 10 = 320', caption:'Buscamos un múltiplo fácil de 32. ¡320 (32 × 10) funciona! Restamos 864 − 320.' },
+  { rem:544, sub:null, cociente:10, calc:null, caption:'Nos queda 544. El cociente lleva, al menos, 10.' },
+  { rem:544, sub:320,  cociente:10, calc:'32 × 10 = 320', caption:'544 también nos permite restar 320 (32 × 10). ¡Restamos otra vez!' },
+  { rem:224, sub:null, cociente:20, calc:null, caption:'Quedan 224. Cociente acumulado: 20.' },
+  { rem:224, sub:160,  cociente:20, calc:'32 × 5 = 160', caption:'224 ya no admite otro 320, pero sí 160 (32 × 5). ¡Restamos!' },
+  { rem:64,  sub:null, cociente:25, calc:null, caption:'Quedan 64. Cociente acumulado: 25.' },
+  { rem:64,  sub:32,   cociente:25, calc:'32 × 1 = 32', caption:'64 admite restar 32 (32 × 1) una vez.' },
+  { rem:32,  sub:null, cociente:26, calc:null, caption:'Queda 32. Cociente acumulado: 26.' },
+  { rem:32,  sub:32,   cociente:26, calc:'32 × 1 = 32', caption:'32 también admite restar 32 (32 × 1) una vez más.' },
+  { rem:0,   sub:null, cociente:27, calc:null, caption:'¡Llegamos a 0! El resto es 0 y el cociente final es 27. Comprobación: 27 × 32 = 864 ✅' },
+];
+
+let activeTutorialNum = 1;
+let tutorialSteps = tutorialSteps1;
+let tutDivisorVal = 2;
 let tutIndex = 0;
+
+function switchTutorial(num){
+  activeTutorialNum = num;
+  tutorialSteps = num === 1 ? tutorialSteps1 : tutorialSteps2;
+  tutDivisorVal = num === 1 ? 2 : 32;
+  tutIndex = 0;
+  document.getElementById('btnTut1').classList.toggle('active', num===1);
+  document.getElementById('btnTut2').classList.toggle('active', num===2);
+  document.getElementById('tutDivisorNum').textContent = tutDivisorVal;
+  renderTutorial();
+}
 
 function renderTutorial(){
   const step = tutorialSteps[tutIndex];
@@ -191,7 +222,6 @@ function renderTutorial(){
   let html = `<div class="div-header"><span class="tag">DIVIDENDO</span></div>`;
   // build rows up to current index
   let rows = [];
-  let currentRem = 486;
   for(let i=1;i<=tutIndex;i++){
     const s = tutorialSteps[i];
     if(s.sub !== null){
@@ -200,9 +230,9 @@ function renderTutorial(){
     }
   }
   if(rows.length === 0){
-    html += `<div class="div-row"><span class="dividendo">486</span></div>`;
+    html += `<div class="div-row"><span class="dividendo">${tutorialSteps[0].rem}</span></div>`;
   } else {
-    rows.forEach((r,idx)=>{
+    rows.forEach((r)=>{
       if(r.type==='dividendo'){
         html += `<div class="div-row"><span class="dividendo">${r.val}</span></div>`;
       } else {

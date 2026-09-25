@@ -420,7 +420,17 @@ function renderCalcAuxRows(){
 }
 function addCalcRow(){
   calcAuxCount++;
-  renderCalcAuxRows();
+  const wrap = document.getElementById('calcAuxRows');
+  const row = document.createElement('div');
+  row.className = 'calc-aux-row';
+  row.innerHTML = `
+    <input class="w-num" type="number" placeholder="${currentEj.divisor}">
+    <span class="op">×</span>
+    <input class="w-num" type="number" placeholder="?">
+    <span class="op">=</span>
+    <input class="w-res" type="number" placeholder="resultado">
+  `;
+  wrap.appendChild(row);
 }
 
 function renderEjercicio(){
@@ -613,7 +623,17 @@ function renderCalcAuxRows2(){
 }
 function addCalcRow2(){
   calcAuxCount2++;
-  renderCalcAuxRows2();
+  const wrap = document.getElementById('calcAuxRows2');
+  const row = document.createElement('div');
+  row.className = 'calc-aux-row';
+  row.innerHTML = `
+    <input class="w-num" type="number" placeholder="${currentEj2.divisor}">
+    <span class="op">×</span>
+    <input class="w-num" type="number" placeholder="?">
+    <span class="op">=</span>
+    <input class="w-res" type="number" placeholder="resultado">
+  `;
+  wrap.appendChild(row);
 }
 
 function renderEjercicio2(){

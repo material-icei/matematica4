@@ -258,7 +258,7 @@ html,body{
 /* Casilleros pendientes (a completar por el alumno) dentro de la misma cuenta */
 .div-row-pending{ gap:0.4vw; }
 .pending-box{
-  width:6.4vw; border:2.5px solid var(--ink-soft); border-radius:8px; padding:0.15vh 0.2vh; text-align:center;
+  width:6.4vw; border:2.5px solid var(--ink-soft); border-radius:8px; padding:0.15vh 0.5vw; text-align:right;
   font-family:'Baloo 2'; font-weight:700; font-size:2.6vh; background:#fff; color:var(--ink-strong);
 }
 .pending-box.subtract-box{ color:var(--red); }

@@ -18,6 +18,7 @@
   --bronze:#C97B3D;
   --card-shadow: 6px 6px 0 rgba(43,36,64,0.12);
   --ink-strong:#241F35; /* tinta fija y oscura para textos sobre superficies blancas fijas: garantiza contraste en cualquier tema */
+  --division-font-size: 3.4vh; /* tamaño único para el dividendo y el número que se resta, sin importar la cantidad de cifras */
 }
 :root:not([data-theme="light"]){
   --paper:#FFF8EC; --ink:#2B2440;
@@ -192,7 +193,7 @@ html,body{
 }
 .division-box{ display:flex; align-items:flex-start; gap:1.4vw; margin:auto 0; }
 .div-col{ display:flex; flex-direction:column; align-items:flex-end; gap:0.35vh; font-family:'Baloo 2'; }
-.div-row{ display:flex; align-items:center; gap:0.7vw; font-size:3.4vh; font-weight:600; line-height:1; }
+.div-row{ display:flex; align-items:center; gap:0.7vw; font-size:var(--division-font-size); font-weight:600; line-height:1; }
 .div-row .dividendo{ color:var(--blue); }
 .div-row .resta{ color:var(--red); }
 .div-col hr{ width:100%; border:none; border-top:3px solid var(--ink); margin:0.06vh 0; }
@@ -258,8 +259,8 @@ html,body{
 /* Casilleros pendientes (a completar por el alumno) dentro de la misma cuenta */
 .div-row-pending{ gap:0.4vw; }
 .pending-box{
-  width:5.4ch; border:2.5px solid var(--ink-soft); border-radius:8px; padding:0.15vh 0.05vw 0.15vh 0.5vw;
-  text-align:right; font-family:'Baloo 2'; font-weight:600; font-size:3.4vh; line-height:1;
+  width:6ch; box-sizing:border-box; border:2.5px solid var(--ink-soft); border-radius:8px; padding:0.15vh 0.05vw 0.15vh 0.5vw;
+  text-align:right; font-family:'Baloo 2'; font-weight:600; font-size:var(--division-font-size); line-height:1;
   background:#fff; color:var(--ink-strong);
 }
 .pending-box.subtract-box{ color:var(--red); }
@@ -348,3 +349,4 @@ html,body{
   font-family:'Baloo 2'; font-weight:700; border:3px solid var(--ink); background:var(--blue); color:#fff;
   border-radius:999px; padding:1vh 2.4vw; cursor:pointer; font-size:2.1vh;
 }
+

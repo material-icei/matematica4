@@ -195,7 +195,7 @@ html,body{
 .div-row{ display:flex; align-items:center; gap:0.7vw; font-size:3.4vh; font-weight:600; line-height:1; }
 .div-row .dividendo{ color:var(--blue); }
 .div-row .resta{ color:var(--red); }
-.div-row hr{ width:100%; border:none; border-top:3px solid var(--ink); margin:0.06vh 0; }
+.div-col hr{ width:100%; border:none; border-top:3px solid var(--ink); margin:0.06vh 0; }
 .div-header{ display:flex; gap:3vw; margin-bottom:0.5vh; }
 .div-header .tag{ font-size:1.8vh; font-weight:700; color:var(--ink-soft); }
 .divisor-col{ display:flex; flex-direction:column; align-items:center; gap:0.35vh; font-family:'Baloo 2'; border-left:3px solid var(--ink); padding-left:1.4vw; }
